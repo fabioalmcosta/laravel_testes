@@ -11,6 +11,24 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/users', function () {
     return view('welcome');
 });
+
+Route::namespace('API')->group(function () {
+    Route::prefix('/products')->group(function(){
+
+        Route::get('/', 'ProductController@index')->name('products');
+
+        Route::get('/{id}', 'ProductController@show')->name('single_product');
+
+        Route::post('/', 'ProductController@store')->name('store_product');
+
+        Route::put('/{id}', 'ProductController@update')->name('update_product');
+
+    });
+    
+});
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
